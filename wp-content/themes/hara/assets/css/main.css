@@ -1,0 +1,697 @@
+/* ==========================================================================
+   HaRa Foods — main stylesheet
+   Brand colours sampled from the HaRa Foods logo.
+   ========================================================================== */
+
+:root {
+	--hara-leaf: #1F6B2A;
+	--hara-leaf-600: #185A22;
+	--hara-forest: #123F1B;
+	--hara-sprout: #8CC152;
+	--hara-harvest: #E3600B;
+	--hara-harvest-600: #C24F06;
+	--hara-sun: #F6B42C;
+	--hara-sun-200: #FFE6A8;
+	--hara-sky: #1E5AA8;
+	--hara-cream: #FFF8EC;
+	--hara-sand: #F6EBD6;
+	--hara-ink: #1D2B1F;
+	--hara-ink-soft: #4A5A4C;
+	--hara-line: #E6DCC8;
+	--hara-white: #FFFFFF;
+
+	--hara-font-display: "Fraunces", Georgia, "Times New Roman", serif;
+	--hara-font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+	--hara-container: 1180px;
+	--hara-gutter: clamp(16px, 4vw, 32px);
+	--hara-radius: 18px;
+	--hara-radius-sm: 10px;
+	--hara-shadow: 0 1px 2px rgba(18, 63, 27, .06), 0 8px 24px rgba(18, 63, 27, .08);
+	--hara-shadow-lg: 0 18px 50px rgba(18, 63, 27, .16);
+	--hara-section-y: clamp(56px, 8vw, 104px);
+}
+
+/* ---------- Base ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+	margin: 0;
+	background: var(--hara-cream);
+	color: var(--hara-ink);
+	font-family: var(--hara-font-body);
+	font-size: 1.0625rem;
+	line-height: 1.65;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	overflow-x: hidden;
+}
+
+img, svg, video, iframe { max-width: 100%; }
+img { height: auto; display: block; }
+
+h1, h2, h3, h4, h5 {
+	font-family: var(--hara-font-display);
+	color: var(--hara-forest);
+	line-height: 1.12;
+	letter-spacing: -0.01em;
+	margin: 0 0 .5em;
+	font-weight: 700;
+	text-wrap: balance;
+}
+h1 { font-size: clamp(2.25rem, 5.2vw, 3.75rem); font-weight: 800; }
+h2 { font-size: clamp(1.75rem, 3.6vw, 2.6rem); }
+h3 { font-size: clamp(1.2rem, 2vw, 1.4rem); }
+h4 { font-size: 1.1rem; }
+
+p { margin: 0 0 1em; }
+
+a { color: var(--hara-leaf); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+a:hover { color: var(--hara-harvest-600); }
+
+:focus-visible { outline: 3px solid var(--hara-sun); outline-offset: 2px; border-radius: 4px; }
+
+::selection { background: var(--hara-sun-200); color: var(--hara-ink); }
+
+.screen-reader-text {
+	border: 0; clip: rect(1px, 1px, 1px, 1px); clip-path: inset(50%);
+	height: 1px; width: 1px; margin: -1px; overflow: hidden; padding: 0;
+	position: absolute !important; word-wrap: normal !important;
+}
+
+.hara-skip {
+	position: absolute; left: 12px; top: -60px; z-index: 1000;
+	background: var(--hara-forest); color: #fff; padding: 10px 16px; border-radius: 8px;
+}
+.hara-skip:focus { top: 12px; color: #fff; }
+
+.hara-container {
+	width: 100%;
+	max-width: calc(var(--hara-container) + 2 * var(--hara-gutter));
+	margin-inline: auto;
+	padding-inline: var(--hara-gutter);
+}
+.hara-container--narrow { max-width: calc(760px + 2 * var(--hara-gutter)); }
+.hara-section-pad { padding-block: var(--hara-section-y); }
+
+.hara-main { display: block; outline: none; }
+
+/* ---------- Buttons ---------- */
+
+.hara-btn,
+.wp-block-button__link,
+.wp-element-button {
+	display: inline-flex; align-items: center; justify-content: center; gap: .5em;
+	min-height: 48px;
+	padding: .75em 1.5em;
+	border-radius: 999px;
+	border: 2px solid transparent;
+	font-family: var(--hara-font-body);
+	font-weight: 700;
+	font-size: 1rem;
+	line-height: 1.2;
+	text-decoration: none;
+	cursor: pointer;
+	transition: background-color .2s, color .2s, border-color .2s, transform .2s, box-shadow .2s;
+}
+.hara-btn:hover, .wp-block-button__link:hover { transform: translateY(-1px); }
+
+.hara-btn--primary,
+.wp-block-button__link {
+	background: var(--hara-harvest);
+	color: #fff;
+	box-shadow: 0 6px 18px rgba(227, 96, 11, .28);
+}
+.hara-btn--primary:hover,
+.wp-block-button__link:hover { background: var(--hara-harvest-600); color: #fff; }
+
+.hara-btn--ghost,
+.is-style-outline > .wp-block-button__link,
+.wp-block-button.is-style-outline .wp-block-button__link {
+	background: transparent;
+	color: var(--hara-forest);
+	border-color: currentColor;
+	box-shadow: none;
+}
+.hara-btn--ghost:hover,
+.wp-block-button.is-style-outline .wp-block-button__link:hover { background: var(--hara-forest); color: #fff; border-color: var(--hara-forest); }
+
+.hara-btn--whatsapp { background: #25D366; color: #0B3D1E; }
+.hara-btn--whatsapp:hover { background: #1EBE5A; color: #0B3D1E; }
+.hara-btn--whatsapp-outline { background: #fff; color: #128C4A; border-color: #25D366; min-height: 44px; font-size: .95rem; }
+.hara-btn--whatsapp-outline:hover { background: #E9FBEF; color: #0B6B35; }
+
+.wp-block-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-block: 1.5em 0; }
+
+/* ---------- Announcement + header ---------- */
+
+.hara-announcement {
+	background: var(--hara-forest);
+	color: var(--hara-sun-200);
+	font-size: .875rem;
+	text-align: center;
+	padding-block: 8px;
+	letter-spacing: .01em;
+}
+
+.hara-header {
+	position: sticky; top: 0; z-index: 50;
+	isolation: isolate;
+	border-bottom: 1px solid transparent;
+	transition: box-shadow .25s, border-color .25s;
+}
+/* Blur lives on a pseudo-element: backdrop-filter on the header itself would trap the fixed mobile menu inside it. */
+.hara-header::before {
+	content: ""; position: absolute; inset: 0; z-index: -1;
+	background: rgba(255, 248, 236, .94);
+	backdrop-filter: saturate(1.4) blur(10px);
+	-webkit-backdrop-filter: saturate(1.4) blur(10px);
+}
+.admin-bar .hara-header { top: 32px; }
+@media (max-width: 782px) { .admin-bar .hara-header { top: 0; } }
+.hara-header.is-scrolled { box-shadow: 0 6px 24px rgba(18, 63, 27, .08); border-color: var(--hara-line); }
+
+.hara-header__inner {
+	display: flex; align-items: center; gap: 16px;
+	min-height: 76px;
+}
+
+.hara-logo, .custom-logo-link { display: inline-flex; flex-shrink: 0; }
+.hara-header .hara-logo img, .hara-header .custom-logo { width: 118px; height: auto; }
+@media (min-width: 960px) { .hara-header .hara-logo img, .hara-header .custom-logo { width: 138px; } }
+
+.hara-nav { margin-left: auto; }
+.hara-menu { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px; }
+.hara-menu a {
+	display: block; padding: 10px 14px; border-radius: 999px;
+	color: var(--hara-ink); text-decoration: none; font-weight: 500;
+}
+.hara-menu a:hover { background: var(--hara-sand); color: var(--hara-forest); }
+.hara-menu .current-menu-item > a,
+.hara-menu .current_page_item > a,
+.hara-menu .current-menu-ancestor > a { color: var(--hara-leaf); background: rgba(31, 107, 42, .08); font-weight: 700; }
+.hara-menu .sub-menu { list-style: none; padding: 8px; margin: 0; }
+
+.hara-header__actions { display: flex; align-items: center; gap: 4px; }
+.hara-cart-link, .hara-account-link {
+	position: relative; display: inline-flex; align-items: center; justify-content: center;
+	width: 46px; height: 46px; border-radius: 50%; color: var(--hara-forest);
+}
+.hara-cart-link:hover, .hara-account-link:hover { background: var(--hara-sand); color: var(--hara-forest); }
+.hara-cart-count {
+	position: absolute; top: 4px; right: 2px;
+	min-width: 20px; height: 20px; padding: 0 5px; border-radius: 999px;
+	background: var(--hara-harvest); color: #fff;
+	font-size: .72rem; font-weight: 700; line-height: 20px; text-align: center;
+}
+.hara-cart-count.is-empty { display: none; }
+
+.hara-nav-toggle {
+	display: none;
+	width: 46px; height: 46px; border: 0; border-radius: 50%;
+	background: var(--hara-forest); color: #fff; cursor: pointer;
+	align-items: center; justify-content: center;
+}
+.hara-nav-toggle__bars,
+.hara-nav-toggle__bars::before,
+.hara-nav-toggle__bars::after {
+	content: ""; display: block; width: 20px; height: 2px; background: currentColor; border-radius: 2px;
+	transition: transform .25s, opacity .25s;
+}
+.hara-nav-toggle__bars { position: relative; }
+.hara-nav-toggle__bars::before { position: absolute; top: -6px; }
+.hara-nav-toggle__bars::after { position: absolute; top: 6px; }
+.hara-nav-open .hara-nav-toggle__bars { background: transparent; }
+.hara-nav-open .hara-nav-toggle__bars::before { transform: translateY(6px) rotate(45deg); }
+.hara-nav-open .hara-nav-toggle__bars::after { transform: translateY(-6px) rotate(-45deg); }
+
+@media (max-width: 959px) {
+	.hara-nav-toggle { display: inline-flex; order: 3; }
+	.hara-header__actions { margin-left: auto; }
+	.hara-nav {
+		position: fixed; inset: var(--hara-header-h, 76px) 0 0 0; z-index: 49;
+		background: var(--hara-cream);
+		padding: 16px var(--hara-gutter) 40px;
+		overflow-y: auto;
+		transform: translateX(100%);
+		visibility: hidden;
+		transition: transform .3s ease, visibility .3s;
+		margin: 0;
+	}
+	.hara-nav-open .hara-nav { transform: none; visibility: visible; }
+	.hara-nav-open { overflow: hidden; }
+	.hara-menu { flex-direction: column; gap: 2px; }
+	.hara-menu a { font-size: 1.25rem; padding: 14px 16px; border-radius: 12px; font-family: var(--hara-font-display); font-weight: 600; }
+}
+
+/* ---------- Banner (inner page headers) ---------- */
+
+.hara-banner {
+	position: relative;
+	background:
+		radial-gradient(circle at 92% -20%, rgba(246, 180, 44, .45) 0, rgba(246, 180, 44, 0) 42%),
+		linear-gradient(180deg, var(--hara-sand) 0%, var(--hara-cream) 100%);
+	padding-block: clamp(36px, 6vw, 72px) clamp(32px, 5vw, 56px);
+	overflow: hidden;
+}
+.hara-banner__title { margin-bottom: .25em; max-width: 18ch; }
+.hara-banner__intro { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--hara-ink-soft); max-width: 62ch; margin: 0; }
+.hara-banner--article .hara-banner__title { max-width: none; }
+
+.hara-breadcrumb { font-size: .875rem; color: var(--hara-ink-soft); margin-bottom: 14px; }
+.hara-breadcrumb a { color: var(--hara-ink-soft); text-decoration: none; }
+.hara-breadcrumb a:hover { color: var(--hara-leaf); text-decoration: underline; }
+
+.hara-eyebrow {
+	display: inline-block;
+	font-family: var(--hara-font-body);
+	font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+	color: var(--hara-harvest);
+	margin-bottom: .75em;
+}
+.hara-eyebrow a { color: inherit; text-decoration: none; }
+
+.hara-meta { color: var(--hara-ink-soft); font-size: .95rem; }
+
+/* ---------- Page content & sections ---------- */
+/* Pages are built from blocks. Plain blocks are kept to a readable width;
+   Group blocks with the "hara-section" class run full-width with their own background. */
+
+.hara-content > * {
+	max-width: calc(var(--hara-container) + 2 * var(--hara-gutter));
+	margin-inline: auto;
+	padding-inline: var(--hara-gutter);
+}
+.hara-content > p,
+.hara-content > ul,
+.hara-content > ol,
+.hara-content > h2,
+.hara-content > h3,
+.hara-content > .wp-block-details { max-width: calc(780px + 2 * var(--hara-gutter)); }
+.hara-content > :first-child:not(.hara-section) { margin-top: var(--hara-section-y); }
+.hara-content > :last-child:not(.hara-section) { margin-bottom: var(--hara-section-y); }
+
+.hara-content > .alignfull,
+.hara-content > .hara-section { max-width: none; }
+
+.hara-section {
+	padding-block: var(--hara-section-y);
+	padding-inline: max(var(--hara-gutter), calc((100% - var(--hara-container)) / 2));
+	margin: 0;
+}
+.hara-section > .wp-block-group__inner-container { max-width: none; }
+.hara-section--sand { background: var(--hara-sand); }
+.hara-section--white { background: var(--hara-white); }
+.hara-section--tight { padding-block: clamp(36px, 5vw, 64px); }
+
+.hara-section__head { max-width: 720px; margin-bottom: clamp(28px, 4vw, 48px); }
+.hara-section__head.has-text-align-center,
+.hara-center { text-align: center; margin-inline: auto; }
+.hara-section__head > :last-child { margin-bottom: 0; }
+.hara-lead { font-size: clamp(1.08rem, 1.5vw, 1.25rem); color: var(--hara-ink-soft); }
+
+.wp-block-columns { display: flex; flex-wrap: wrap; gap: clamp(20px, 3vw, 36px); margin: 0; }
+.wp-block-column { flex: 1 1 0; min-width: 0; }
+@media (max-width: 781px) {
+	.wp-block-columns:not(.is-not-stacked-on-mobile) { flex-direction: column; }
+	.wp-block-columns:not(.is-not-stacked-on-mobile) > .wp-block-column { flex-basis: auto !important; width: 100%; }
+}
+.wp-block-columns.are-vertically-aligned-center { align-items: center; }
+
+/* ---------- Home: hero ---------- */
+
+.hara-hero {
+	position: relative;
+	background:
+		radial-gradient(1200px 520px at 85% 10%, rgba(246, 180, 44, .35), rgba(246, 180, 44, 0) 60%),
+		linear-gradient(180deg, #FFF3DA 0%, var(--hara-cream) 100%);
+	padding-block: clamp(40px, 7vw, 96px) clamp(48px, 8vw, 112px);
+	overflow: hidden;
+}
+.hara-hero h1 { margin-bottom: .35em; }
+.hara-hero h1 em { font-style: normal; color: var(--hara-harvest); }
+.hara-hero .hara-lead { max-width: 34em; }
+.hara-hero__note { margin-top: 22px; font-size: .92rem; color: var(--hara-ink-soft); }
+.hara-hero__art {
+	aspect-ratio: 8 / 7;
+	width: 100%;
+	background: url("../img/hero-art.svg") center / contain no-repeat;
+	filter: drop-shadow(0 30px 40px rgba(18, 63, 27, .12));
+}
+.hara-hero__art img { width: 100%; height: 100%; object-fit: cover; border-radius: 28px; }
+.hara-hero__art:has(img) { background: none; }
+@media (max-width: 781px) {
+	.hara-hero__art { max-width: 340px; margin-inline: auto; }
+}
+
+/* ---------- Home: value cards ---------- */
+
+.hara-values { position: relative; z-index: 2; padding-top: 0; }
+@media (min-width: 782px) { .hara-values { margin-top: calc(-1 * clamp(28px, 5vw, 56px)); } }
+.hara-value {
+	background: var(--hara-white);
+	border-radius: var(--hara-radius);
+	padding: 26px 24px;
+	box-shadow: var(--hara-shadow);
+	height: 100%;
+	border-top: 4px solid var(--hara-sun);
+}
+.wp-block-column:nth-child(2) > .hara-value { border-top-color: var(--hara-leaf); }
+.wp-block-column:nth-child(3) > .hara-value { border-top-color: var(--hara-harvest); }
+.wp-block-column:nth-child(4) > .hara-value { border-top-color: var(--hara-sky); }
+.hara-value h3 { font-size: 1.15rem; margin-bottom: .4em; }
+.hara-value p { margin: 0; color: var(--hara-ink-soft); font-size: .98rem; }
+
+/* ---------- Process steps ---------- */
+
+.hara-steps { counter-reset: step; }
+.hara-step {
+	position: relative;
+	padding: 64px 22px 24px;
+	background: var(--hara-white);
+	border-radius: var(--hara-radius);
+	height: 100%;
+}
+.hara-step::before {
+	counter-increment: step;
+	content: counter(step);
+	position: absolute; top: 18px; left: 22px;
+	width: 34px; height: 34px; border-radius: 50%;
+	display: grid; place-items: center;
+	background: var(--hara-sun); color: var(--hara-forest);
+	font-family: var(--hara-font-display); font-weight: 800;
+}
+.hara-step h3 { font-size: 1.12rem; }
+.hara-step p { margin: 0; color: var(--hara-ink-soft); font-size: .98rem; }
+
+/* ---------- Impact (dark) ---------- */
+
+.hara-dark {
+	background:
+		radial-gradient(800px 400px at 100% 0%, rgba(246, 180, 44, .22), transparent 60%),
+		var(--hara-forest);
+	color: #E6F0E3;
+}
+.hara-dark h2, .hara-dark h3 { color: #fff; }
+.hara-dark .hara-eyebrow { color: var(--hara-sun); }
+.hara-dark .hara-lead, .hara-dark p { color: #D3E3CF; }
+.hara-dark a:not(.wp-block-button__link):not(.hara-btn) { color: var(--hara-sun-200); }
+.hara-dark .is-style-outline .wp-block-button__link { color: #fff; }
+.hara-dark .is-style-outline .wp-block-button__link:hover { background: #fff; color: var(--hara-forest); border-color: #fff; }
+
+.hara-pillar {
+	border-top: 1px solid rgba(255, 255, 255, .18);
+	padding-top: 22px;
+	height: 100%;
+}
+.hara-pillar h3 { font-size: 1.25rem; }
+.hara-pillar h3::before {
+	content: ""; display: block; width: 40px; height: 4px; border-radius: 4px;
+	background: var(--hara-sun); margin-bottom: 18px;
+}
+
+.hara-stats .hara-stat { text-align: left; }
+.hara-stat__num, .hara-stat .hara-stat__num {
+	font-family: var(--hara-font-display); font-weight: 800;
+	font-size: clamp(2.2rem, 4.5vw, 3.2rem); line-height: 1; color: var(--hara-harvest); margin-bottom: 8px;
+}
+.hara-dark .hara-stat__num { color: var(--hara-sun); }
+
+/* ---------- CTA band ---------- */
+
+.hara-cta {
+	position: relative;
+	background: linear-gradient(120deg, var(--hara-harvest) 0%, #F08A1C 100%);
+	color: #fff;
+	border-radius: 28px;
+	padding: clamp(32px, 5vw, 64px);
+	overflow: hidden;
+}
+.hara-cta::after {
+	content: ""; position: absolute; right: -80px; top: -80px; width: 280px; height: 280px; border-radius: 50%;
+	background: rgba(255, 230, 168, .35);
+}
+.hara-cta > * { position: relative; z-index: 1; }
+.hara-cta h2 { color: #fff; max-width: 20ch; }
+.hara-cta p { color: #FFF1E3; max-width: 52ch; }
+.hara-cta .wp-block-button__link { background: var(--hara-forest); box-shadow: none; }
+.hara-cta .wp-block-button__link:hover { background: #0B2A11; }
+.hara-cta .is-style-outline .wp-block-button__link { background: transparent; color: #fff; border-color: #fff; }
+.hara-cta .is-style-outline .wp-block-button__link:hover { background: #fff; color: var(--hara-harvest-600); }
+
+/* ---------- Cards (posts, team) ---------- */
+
+.hara-post-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.hara-card {
+	background: var(--hara-white); border-radius: var(--hara-radius); overflow: hidden;
+	box-shadow: var(--hara-shadow); display: flex; flex-direction: column;
+	transition: transform .25s, box-shadow .25s;
+}
+.hara-card:hover { transform: translateY(-3px); box-shadow: var(--hara-shadow-lg); }
+.hara-card__media { display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--hara-sand); }
+.hara-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.hara-card__placeholder {
+	display: block; width: 100%; height: 100%;
+	background:
+		radial-gradient(circle at 70% 35%, var(--hara-sun) 0 14%, transparent 15%),
+		linear-gradient(180deg, #FFF0CF 0 62%, var(--hara-leaf) 62% 100%);
+}
+.hara-card__body { padding: 22px 22px 24px; display: flex; flex-direction: column; flex: 1; }
+.hara-card__body .hara-eyebrow { margin-bottom: .5em; }
+.hara-card__title { font-size: 1.2rem; margin-bottom: .45em; }
+.hara-card__title a { color: var(--hara-forest); text-decoration: none; }
+.hara-card__title a:hover { color: var(--hara-harvest-600); }
+.hara-card__body p { color: var(--hara-ink-soft); font-size: .97rem; }
+.hara-card__body time { margin-top: auto; font-size: .85rem; color: var(--hara-ink-soft); }
+
+.hara-team .wp-block-column { background: var(--hara-white); border-radius: var(--hara-radius); padding: 24px; box-shadow: var(--hara-shadow); }
+.hara-team .wp-block-image img { border-radius: 14px; aspect-ratio: 1; object-fit: cover; width: 100%; }
+.hara-team h3 { margin-top: 16px; margin-bottom: .1em; }
+.hara-team .hara-role { color: var(--hara-harvest); font-weight: 700; font-size: .92rem; }
+.hara-avatar-placeholder {
+	aspect-ratio: 1; border-radius: 14px;
+	background: linear-gradient(160deg, var(--hara-sun-200), var(--hara-sand));
+	display: grid; place-items: center; color: var(--hara-ink-soft); font-size: .9rem; text-align: center; padding: 12px;
+}
+
+/* ---------- Testimonials ---------- */
+
+.hara-testimonials { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.hara-testimonial {
+	margin: 0; background: var(--hara-white); border-radius: var(--hara-radius);
+	padding: 28px; box-shadow: var(--hara-shadow); display: flex; flex-direction: column;
+}
+.hara-testimonial .hara-icon--quote { width: 36px; height: 36px; color: var(--hara-sun); margin-bottom: 8px; }
+.hara-testimonial blockquote { margin: 0 0 20px; font-size: 1.05rem; color: var(--hara-ink); }
+.hara-testimonial blockquote p:last-child { margin: 0; }
+.hara-testimonial figcaption { margin-top: auto; display: flex; gap: 12px; align-items: center; }
+.hara-testimonial__photo { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+.hara-testimonial figcaption strong { display: block; color: var(--hara-forest); }
+.hara-testimonial figcaption small { color: var(--hara-ink-soft); font-size: .88rem; }
+
+/* ---------- Forms ---------- */
+
+.hara-form-wrap { background: var(--hara-white); border-radius: var(--hara-radius); padding: clamp(22px, 4vw, 40px); box-shadow: var(--hara-shadow); scroll-margin-top: 110px; }
+.hara-form__grid { display: grid; gap: 4px 20px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .hara-form__grid { grid-template-columns: 1fr 1fr; } }
+.hara-field { margin: 0 0 14px; }
+.hara-field--wide { grid-column: 1 / -1; }
+.hara-field label { display: block; font-weight: 700; font-size: .92rem; margin-bottom: 6px; color: var(--hara-forest); }
+.hara-req { color: var(--hara-harvest); }
+
+.hara-form input, .hara-form select, .hara-form textarea,
+.woocommerce form .input-text, .woocommerce form select,
+.search-form .search-field {
+	width: 100%;
+	min-height: 48px;
+	padding: 11px 14px;
+	border: 1.5px solid var(--hara-line);
+	border-radius: 12px;
+	background: var(--hara-cream);
+	font: inherit; font-size: 1rem; color: var(--hara-ink);
+	transition: border-color .2s, box-shadow .2s, background-color .2s;
+}
+.hara-form textarea { min-height: 140px; resize: vertical; }
+.hara-form input:focus, .hara-form select:focus, .hara-form textarea:focus,
+.woocommerce form .input-text:focus, .search-form .search-field:focus {
+	outline: none; border-color: var(--hara-leaf); background: #fff;
+	box-shadow: 0 0 0 4px rgba(31, 107, 42, .14);
+}
+.hara-form__actions { margin: 8px 0 0; }
+.hara-hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.hara-notice { padding: 14px 18px; border-radius: 12px; margin-bottom: 20px; }
+.hara-notice--success { background: #E6F4E2; color: #134A1C; border: 1px solid #B8DDB0; }
+.hara-notice--error { background: #FDECE4; color: #8A2E05; border: 1px solid #F5C3A8; }
+.hara-empty { padding: 16px; border: 2px dashed var(--hara-line); border-radius: 12px; color: var(--hara-ink-soft); }
+
+.search-form { display: flex; gap: 8px; max-width: 480px; }
+.search-form label { flex: 1; }
+.search-form .search-submit { min-height: 48px; padding: 0 20px; border: 0; border-radius: 12px; background: var(--hara-leaf); color: #fff; font-weight: 700; cursor: pointer; }
+
+/* ---------- Contact ---------- */
+
+.hara-contact-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+.hara-contact-list li { display: flex; gap: 14px; align-items: flex-start; }
+.hara-contact-list strong { display: block; font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; color: var(--hara-ink-soft); }
+.hara-contact-list__icon {
+	flex: 0 0 40px; height: 40px; border-radius: 12px; display: grid; place-items: center;
+	background: rgba(31, 107, 42, .1); color: var(--hara-leaf);
+}
+
+.hara-map { position: relative; border-radius: var(--hara-radius); overflow: hidden; box-shadow: var(--hara-shadow); background: var(--hara-sand); }
+.hara-map iframe { display: block; width: 100%; border: 0; }
+.hara-map__link {
+	position: absolute; right: 12px; bottom: 12px; background: #fff; padding: 8px 14px; border-radius: 999px;
+	font-size: .875rem; font-weight: 700; text-decoration: none; box-shadow: var(--hara-shadow);
+}
+
+/* ---------- FAQ (Details blocks) ---------- */
+
+.wp-block-details {
+	background: var(--hara-white); border-radius: 14px; margin-bottom: 12px !important;
+	border: 1px solid var(--hara-line); padding: 0;
+}
+.wp-block-details summary {
+	cursor: pointer; list-style: none; padding: 18px 56px 18px 22px; position: relative;
+	font-family: var(--hara-font-display); font-weight: 700; font-size: 1.1rem; color: var(--hara-forest);
+}
+.wp-block-details summary::-webkit-details-marker { display: none; }
+.wp-block-details summary::after {
+	content: "+"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+	width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+	background: var(--hara-sand); color: var(--hara-harvest); font-family: var(--hara-font-body); font-size: 1.2rem;
+	transition: transform .2s;
+}
+.wp-block-details[open] summary::after { content: "−"; }
+.wp-block-details > :not(summary) { padding-inline: 22px; color: var(--hara-ink-soft); }
+.wp-block-details > :last-child { padding-bottom: 18px; margin-bottom: 0; }
+.hara-faq-group { margin-top: 40px; }
+
+/* ---------- Instagram card ---------- */
+
+.hara-insta-card {
+	display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+	padding: 24px 28px; border-radius: var(--hara-radius); text-decoration: none; color: #fff;
+	background: linear-gradient(115deg, #833AB4 0%, #E1306C 50%, #F77737 100%);
+	box-shadow: var(--hara-shadow);
+}
+.hara-insta-card:hover { color: #fff; transform: translateY(-2px); }
+.hara-insta-card .hara-icon { width: 44px; height: 44px; flex: none; }
+.hara-insta-card span { flex: 1 1 260px; }
+.hara-insta-card strong { display: block; font-size: 1.2rem; }
+.hara-insta-card .hara-insta-card__cta { flex: none; background: #fff; color: #C13584; font-weight: 700; padding: 10px 18px; border-radius: 999px; }
+
+/* ---------- Prose (posts, legal pages) ---------- */
+
+.hara-prose { padding-block: 8px var(--hara-section-y); font-size: 1.1rem; }
+.hara-prose h2 { font-size: 1.7rem; margin-top: 1.6em; }
+.hara-prose h3 { margin-top: 1.4em; }
+.hara-prose blockquote, .hara-content blockquote.wp-block-quote {
+	margin: 1.6em 0; padding: 4px 0 4px 22px; border-left: 4px solid var(--hara-sun);
+	font-family: var(--hara-font-display); font-size: 1.3rem; color: var(--hara-forest);
+}
+.hara-prose img, .hara-content .wp-block-image img { border-radius: 14px; }
+.hara-article__hero { margin-bottom: 32px; }
+.hara-article__hero img { width: 100%; border-radius: var(--hara-radius); }
+.hara-article__footer { padding-bottom: var(--hara-section-y); }
+.hara-post-nav { display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid var(--hara-line); padding-top: 22px; flex-wrap: wrap; }
+.hara-tags a { display: inline-block; margin: 0 6px 6px 0; padding: 4px 12px; background: var(--hara-sand); border-radius: 999px; text-decoration: none; font-size: .88rem; }
+
+.hara-pagination, .navigation.pagination { margin-top: 40px; }
+.nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+.nav-links .page-numbers {
+	min-width: 44px; height: 44px; padding: 0 14px; border-radius: 999px; display: inline-grid; place-items: center;
+	background: var(--hara-white); text-decoration: none; font-weight: 700;
+}
+.nav-links .page-numbers.current { background: var(--hara-leaf); color: #fff; }
+
+.wp-block-table table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; }
+.wp-block-table td, .wp-block-table th { padding: 12px 14px; border-bottom: 1px solid var(--hara-line); text-align: left; }
+.wp-block-table th { background: var(--hara-sand); }
+
+/* ---------- 404 ---------- */
+
+.hara-404 { padding-block: var(--hara-section-y); text-align: center; }
+.hara-404 h1 { max-width: none; }
+.hara-404__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 28px 0; }
+.hara-404 .search-form { margin-inline: auto; }
+
+/* ---------- Footer ---------- */
+
+.hara-footer {
+	position: relative;
+	background: var(--hara-forest);
+	color: #CFE0CB;
+	margin-top: 0;
+	padding-top: clamp(56px, 7vw, 88px);
+	font-size: .97rem;
+}
+.hara-footer::before {
+	content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 6px;
+	background: linear-gradient(90deg, var(--hara-leaf) 0 33%, var(--hara-sun) 33% 66%, var(--hara-harvest) 66% 100%);
+}
+.hara-footer a { color: #fff; text-decoration: none; }
+.hara-footer a:hover { color: var(--hara-sun); text-decoration: underline; }
+.hara-footer__grid { display: grid; gap: 40px; grid-template-columns: 1fr; padding-bottom: 48px; }
+@media (min-width: 720px) { .hara-footer__grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .hara-footer__grid { grid-template-columns: 1.4fr .8fr .8fr 1.2fr; } }
+.hara-footer__logo { display: inline-block; background: #FFF8EC; border-radius: 18px; padding: 10px 14px; margin-bottom: 18px; }
+.hara-footer__logo img { width: 150px; }
+.hara-footer__title { font-family: var(--hara-font-body); font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--hara-sun); margin-bottom: 16px; }
+.hara-footer__menu { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.hara-footer .hara-contact-list strong { color: #9FBE99; }
+.hara-footer .hara-contact-list__icon { background: rgba(255, 255, 255, .08); color: var(--hara-sun); }
+.hara-footer__bottom { border-top: 1px solid rgba(255, 255, 255, .12); padding-block: 20px; font-size: .875rem; }
+.hara-footer__bottom .hara-container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+.hara-footer__bottom p { margin: 0; color: #A9C3A4; }
+
+.hara-social { list-style: none; padding: 0; margin: 18px 0 0; display: flex; gap: 10px; flex-wrap: wrap; }
+.hara-social a {
+	width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center;
+	background: var(--hara-sand); color: var(--hara-forest);
+	transition: background .2s, color .2s, transform .2s;
+}
+.hara-social a:hover { background: var(--hara-harvest); color: #fff; transform: translateY(-2px); }
+.hara-social--light a { background: rgba(255, 255, 255, .1); color: #fff; }
+.hara-social .hara-icon { width: 18px; height: 18px; }
+
+/* ---------- Floating WhatsApp ---------- */
+
+.hara-wa-float {
+	position: fixed; right: 18px; bottom: 18px; z-index: 60;
+	display: inline-flex; align-items: center; gap: 10px;
+	height: 58px; padding: 0 18px 0 16px; border-radius: 999px;
+	background: #25D366; color: #fff; text-decoration: none; font-weight: 700;
+	box-shadow: 0 10px 30px rgba(18, 140, 74, .4);
+	transition: transform .2s, box-shadow .2s;
+}
+.hara-wa-float:hover { color: #fff; transform: translateY(-2px) scale(1.02); box-shadow: 0 14px 34px rgba(18, 140, 74, .5); }
+.hara-wa-float .hara-icon { width: 28px; height: 28px; }
+@media (max-width: 600px) {
+	.hara-wa-float { width: 58px; padding: 0; justify-content: center; }
+	.hara-wa-float__label { display: none; }
+}
+
+/* ---------- Motion ---------- */
+
+.will-reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+.will-reveal.is-visible { opacity: 1; transform: none; }
+
+/* ---------- Utility ---------- */
+
+.hara-mt-0 { margin-top: 0 !important; }
+.has-text-align-center { text-align: center; }
+.aligncenter { margin-inline: auto; }
+
+/* Details boxes carry their own padding; size them to the text column instead. */
+.hara-content > .wp-block-details {
+	max-width: 780px;
+	width: calc(100% - 2 * var(--hara-gutter));
+	margin-inline: auto;
+	padding: 0;
+}

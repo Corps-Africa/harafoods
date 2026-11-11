@@ -1,0 +1,76 @@
+# Local development stack for the HaRa Foods Ltd WooCommerce site.
+#   bin/setup.sh        -> downloads plugins, starts the stack, provisions the store
+#   http://localhost:8080        storefront
+#   http://localhost:8080/wp-admin   admin (credentials in .env)
+
+name: harafoods
+
+x-wp-env: &wp-env
+  WORDPRESS_DB_HOST: db
+  WORDPRESS_DB_NAME: ${DB_NAME:-wordpress}
+  WORDPRESS_DB_USER: ${DB_USER:-wordpress}
+  WORDPRESS_DB_PASSWORD: ${DB_PASSWORD:-wordpress}
+  WORDPRESS_TABLE_PREFIX: hr_
+  WORDPRESS_CONFIG_EXTRA: |
+    define( 'WP_ENVIRONMENT_TYPE', 'local' );
+    define( 'DISALLOW_FILE_EDIT', true );
+    define( 'WP_HTTP_BLOCK_EXTERNAL', filter_var( getenv( 'HARA_BLOCK_EXTERNAL' ) ?: 'false', FILTER_VALIDATE_BOOLEAN ) );
+    define( 'WP_ACCESSIBLE_HOSTS', '*.paystack.co' );
+
+x-wp-volumes: &wp-volumes
+  - wp_data:/var/www/html
+  - ./wp-content/themes/hara:/var/www/html/wp-content/themes/hara
+  - ./wp-content/mu-plugins:/var/www/html/wp-content/mu-plugins
+
+services:
+  db:
+    image: mariadb:11
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${DB_NAME:-wordpress}
+      MARIADB_USER: ${DB_USER:-wordpress}
+      MARIADB_PASSWORD: ${DB_PASSWORD:-wordpress}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpass}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  wordpress:
+    image: wordpress:7-php8.3-apache
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${WP_PORT:-8080}:80"
+    environment:
+      <<: *wp-env
+      HARA_BLOCK_EXTERNAL: ${HARA_BLOCK_EXTERNAL:-false}
+    volumes: *wp-volumes
+
+  # One-off WP-CLI container: docker compose run --rm cli wp <command>
+  cli:
+    image: wordpress:cli-php8.3
+    profiles: ["cli"]
+    user: "33:33"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      <<: *wp-env
+      HARA_BLOCK_EXTERNAL: ${HARA_BLOCK_EXTERNAL:-false}
+      WP_CLI_CACHE_DIR: /tmp/wp-cli-cache
+    volumes:
+      - wp_data:/var/www/html
+      - ./wp-content/themes/hara:/var/www/html/wp-content/themes/hara
+      - ./wp-content/mu-plugins:/var/www/html/wp-content/mu-plugins
+      - ./bin:/scripts:ro
+      - ./.cache/plugins:/plugins-cache:ro
+
+volumes:
+  db_data:
+  wp_data:
